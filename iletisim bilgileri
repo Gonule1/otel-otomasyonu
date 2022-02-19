@@ -1,0 +1,36 @@
+korumalı  void  btnGonder_Click ( nesne  gönderici , EventArgs  e )
+{
+
+if ( txtAdSoyad . Metin  != “” &  txtKonu . Metin  != “” &  txtMail . Metin  != “” &  txtMesaj . Metin  != “”)
+{
+string  mesaj  = “”;
+mesaj  += “ < b >  Ki ş isel  sitesi  ziyaret ç den  mail  geldi  !  < / b >< br / > ”;
+mesaj  += “ < b >  Ad  Soyad ı : < / b > ” +  txtAdSoyad . Metin  + “ < br / > ”;
+mesaj  += “ < b >  Mail : < / b > ” +  txtMail . Metin  + “ < br / > ”;
+mesaj  += “ < b >  Konu : < / b > ” +  txtKonu . Metin  + “ < br / > ”;
+mesaj  += “ < b >  Mesaj : < / b > ” +  txtMesaj . Metin  + “ < br / > ”;
+mesaj  += “ < b >  Tarih : < / b > ” +  DateTime . şimdi . ToString ();
+
+MailMessage  msg  =  yeni  MailMessage (); // Yeni mail nesnesi oluşturduk.
+mesaj . IsBodyHtml  =  doğru ; // html kodları yazıldığında sorun çıkmaması için.
+mesaj . için . Ekle (“ Mesaj ı n  gidece ğ i  maili  yaz ı n ”);
+mesaj . From  =  new  MailAddress (“ i n g önderilece ğ i sabit mail adresi ”, “ Mailde g ö z ü kecek İ sim ” , Sistem . Metin . Kodlama . UTF8 ) ;     
+mesaj . Konu  =  txtKonu . Metin ; // mailin konusu.
+mesaj . Gövde  =  mesaj ; // mail içinde.
+
+SmtpClient  smtp  =  yeni  SmtpClient (); // gmail için yeni smtp nesnesi oluşturduk.
+smtp . EnableSsl  =  doğru ; // gmail için ssl i aktif hale getirdik.
+smtp . Credentials  =  new  NetworkCredential (“ şifrelerı n g ö nderilece ğ sabit mail adresi ” , “ mail ş ifresi ”) ;    
+smtp . bağlantı noktası  =  587 ; // portu seçtik.
+smtp . Ana bilgisayar  = “ smtp . gmail . com ”;
+smtp . Gönder ( mesaj );
+
+txtAdSoyad . Metin  =  txtKonu . Metin  =  txtMail . Metin  =  txtMesaj . Metin  = “”;
+lblMesaj . Metin  = “ Mesaj ı n z  g ö nderilmi ş tir , ilginiz  i ç in  te ş ekk ü rler . ”;
+}
+Başka
+{
+lblMesaj . Metin  = “ Bo ş alan  b ı rak olmazsak  daha  sa ğ l ı kl ı ileti ş im im  planız :)”;
+}
+
+}
